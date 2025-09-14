@@ -38,7 +38,6 @@ export default function useRightSidebar(groupId: string | undefined) {
         });
         if (!res.ok) throw new Error("Failed to fetch group data");
         const data = await res.json();
-        console.log(data);
 
         setCurrentGroup(data.group);
         setOnlineUsers(data.onlineUsers);

@@ -20,7 +20,7 @@ export default function GlobalChatClient({ initialMessages }: ChatClientProps) {
   const [loadingUser, setLoadingUser] = useState(true);
 
   const profilesCache = useRef<
-    Map<string, { username: string; avatar_url?: string }>
+    Map<string, { username: string; avatar_url: string | null }>
   >(new Map());
 
   useEffect(() => {
@@ -42,16 +42,32 @@ export default function GlobalChatClient({ initialMessages }: ChatClientProps) {
             const newMessage = payload.new;
             let profile = profilesCache.current.get(newMessage.sender_id);
             if (!profile) {
-              profile = await getCurrentProfile(newMessage.sender_id);
+              const fetchedProfile = await getCurrentProfile(
+                newMessage.sender_id
+              );
+              profile = fetchedProfile || undefined;
               if (profile)
                 profilesCache.current.set(newMessage.sender_id, profile);
             }
+            const normalizedProfile = {
+              username: profile?.username ?? "Unknown",
+              avatar_url: profile?.avatar_url ?? null,
+            };
+            const formattedMessage: Message = {
+              id: newMessage.id,
+              content: newMessage.content,
+              created_at: newMessage.created_at,
+              sender_id: newMessage.sender_id,
+              profile: normalizedProfile,
+            };
 
-            setMessages((prev) => [...prev, { ...newMessage, profile }]);
+            setMessages((prev) => [...prev, formattedMessage]);
           }
         )
         .subscribe((status) => {
-          console.log("subscription status:", status);
+          if (status !== "SUBSCRIBED") {
+            setLoadingUser(true);
+          }
         });
     };
 
@@ -72,17 +88,17 @@ export default function GlobalChatClient({ initialMessages }: ChatClientProps) {
     });
   };
 
-  if (loadingUser) {
-    return <LoadingChatSkeleton />;
-  }
-
   return (
-    <div className="w-full h-[90vh]">
-      <ChatWindow
-        messages={messages}
-        senderId={senderId as string}
-        onSend={handleSend}
-      />
+    <div className="w-full h-[100vh]">
+      {loadingUser ? (
+        <LoadingChatSkeleton />
+      ) : (
+        <ChatWindow
+          messages={messages}
+          senderId={senderId as string}
+          onSend={handleSend}
+        />
+      )}
     </div>
   );
 }

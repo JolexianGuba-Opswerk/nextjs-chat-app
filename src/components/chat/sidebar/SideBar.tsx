@@ -29,13 +29,13 @@ import {
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import getMyGroups from "../../hooks/getMyGroups";
+import getMyGroups from "../../../app/chat/hooks/getMyGroups";
 import getCurrentSession from "@/lib/supabase/getCurrentSession";
-import { GroupsType } from "../../../../../types/chat/chat";
+import { GroupsType } from "../../../../types/chat/chat";
 import { toast } from "sonner";
 import CreateGroupDialog from "./CreateGroupDialog";
-import getGlobalGroups from "../../hooks/getGlobalGroups";
-import updateOnlineStatus from "../../hooks/updateOnlineStatus";
+import getGlobalGroups from "../../../app/chat/hooks/getGlobalGroups";
+import updateOnlineStatus from "../../../app/chat/hooks/updateOnlineStatus";
 
 type GroupItem = {
   id: string;

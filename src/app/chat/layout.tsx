@@ -1,5 +1,5 @@
-import SideBar from "./components/sidebar/SideBar";
-import RightSideBar from "./components/sidebar/RightSideBar";
+import SideBar from "../../components/chat/sidebar/SideBar";
+import RightSideBar from "../../components/chat/sidebar/RightSideBar";
 
 export default function ChatLayout({
   children,

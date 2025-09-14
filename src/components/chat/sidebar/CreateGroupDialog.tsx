@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 
-import createMyGroup from "../../hooks/createMyGroups";
+import createMyGroup from "../../../app/chat/hooks/createMyGroups";
 import { toast } from "sonner";
 
 export default function CreateGroupDialog() {

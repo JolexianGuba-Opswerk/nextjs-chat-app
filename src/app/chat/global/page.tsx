@@ -1,6 +1,5 @@
 import { supabase } from "@/lib/supabase/supabaseClient";
 import ChatClient from "./GlobalChatClient";
-import { Message } from "../../../../types/chat/chat";
 
 export default async function GlobalChatPage() {
   const { data: messages } = await supabase
@@ -23,20 +22,9 @@ export default async function GlobalChatPage() {
     );
   }
 
-  const formattedMessages: Message[] = messages.map((m) => ({
-    id: m.id,
-    content: m.content,
-    created_at: m.created_at,
-    sender_id: m.sender_id,
-    profile: {
-      username: m.profile?.username ?? "Unknown",
-      avatar_url: m.profile?.avatar_url ?? "",
-    },
-  }));
-
   return (
-    <div className="flex flex-col w-full pt-20">
-      <ChatClient initialMessages={formattedMessages ?? []} />
+    <div className="flex flex-col w-full">
+      <ChatClient initialMessages={messages ?? []} />
     </div>
   );
 }

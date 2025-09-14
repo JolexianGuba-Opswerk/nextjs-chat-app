@@ -1,12 +1,12 @@
 export type GroupChatCardProps = {
-  id: string;
+  id: number;
   title: string;
   description: string;
   created_by: string;
   members: string;
 };
 export type GroupsType = {
-  id: string;
+  id: number;
   title: string;
   description: string;
   created_at: string;
@@ -20,12 +20,12 @@ export type CreateGroupProps = {
 };
 
 export type Message = {
-  id: string;
+  id: number;
   content: string;
-  sender_id: string;
+  sender_id: string | null;
   created_at: string;
   profile: {
     username: string;
     avatar_url: string | null;
-  };
+  } | null;
 };
