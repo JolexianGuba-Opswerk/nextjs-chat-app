@@ -4,7 +4,7 @@ import { Shield, Users, User, LogOut } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import useRightSidebar from "../../hooks/useRightSidebarHooks";
+import useRightSidebar from "../../../app/chat/hooks/useRightSidebarHooks";
 import { useParams, usePathname } from "next/navigation";
 import RightSideBarSkeleton from "@/components/RightSideBarSkeleton";
 import AddMemberDialog from "./AddMemberDialog";

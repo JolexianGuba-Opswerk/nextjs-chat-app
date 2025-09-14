@@ -14,8 +14,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import useAddMembers from "../../hooks/useAddMember";
-import useUpdateGroup from "../../hooks/useUpdateGroup";
+import useAddMembers from "../../../app/chat/hooks/useAddMember";
+import useUpdateGroup from "../../../app/chat/hooks/useUpdateGroup";
 
 type Props = {
   groupId: string;

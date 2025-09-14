@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import validateGroupAccess from "../../hooks/protected-group/validateGroupAccess";
@@ -39,7 +39,7 @@ export default function ProtectedGroup({ children }: Props) {
     validateAccess();
     return () => {
       isMounted = false;
-      controller.abort("Component unmounted");
+      controller.abort("Component Unmount");
     };
   }, []);
 

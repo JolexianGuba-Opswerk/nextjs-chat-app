@@ -5,7 +5,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { groupId: string } }
 ) {
-  const groupId = params.groupId;
+  const { groupId } = await params;
   const supabase = await createServerSupabase();
   if (!groupId) {
     return NextResponse.json(
@@ -24,7 +24,7 @@ export async function GET(
   try {
     const { data: groupData, error: groupError } = await supabase
       .from("Groups")
-      .select("id, title, description, created_by(id,username)")
+      .select("id, title, description, created_by( id, username)")
       .eq("id", groupId)
       .single();
 
@@ -32,6 +32,7 @@ export async function GET(
       return NextResponse.json({ error: "Group not found" }, { status: 404 });
     }
     const isOwner = user.id === groupData.created_by.id;
+
     // Count group members
     const { count: membersCount } = await supabase
       .from("UserGroup")

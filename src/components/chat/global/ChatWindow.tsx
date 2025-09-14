@@ -7,7 +7,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { FormEvent, useEffect, useRef } from "react";
 import { formatDate } from "@/lib/formatDate";
 import { Message } from "../../../../types/chat/chat";
-import LoadingChatSkeleton from "@/components/LoadingChatSkeleton";
 
 interface ChatWindowProps {
   messages: Message[];
@@ -35,10 +34,6 @@ export default function ChatWindow({
     }
   }, [messages]);
 
-  if (!senderId) {
-    return <LoadingChatSkeleton />;
-  }
-
   return (
     <div className="flex flex-col h-full shadow-lg ">
       <ScrollArea className="overflow-y-auto h-full p-4 flex-1">
@@ -59,7 +54,7 @@ export default function ChatWindow({
                 {!isCurrentUser && (
                   <Avatar>
                     <AvatarImage src={msg?.profile?.avatar_url ?? undefined} />
-                    <AvatarFallback>{msg?.profile.username[0]}</AvatarFallback>
+                    <AvatarFallback>{msg?.profile?.username[0]}</AvatarFallback>
                   </Avatar>
                 )}
 
@@ -74,7 +69,7 @@ export default function ChatWindow({
                     {msg.content}
                   </div>
                   <span className="text-xs text-right m-1 text-gray-600 dark:text-gray-400">
-                    <strong> {msg?.profile.username} </strong>•{" "}
+                    <strong> {msg?.profile?.username} </strong>•{" "}
                     {formatDate(msg.created_at)}
                   </span>
                 </div>
@@ -82,7 +77,7 @@ export default function ChatWindow({
                 {isCurrentUser && (
                   <Avatar>
                     <AvatarImage src={msg?.profile?.avatar_url ?? undefined} />
-                    <AvatarFallback>{msg.profile.username[0]}</AvatarFallback>
+                    <AvatarFallback>{msg.profile?.username[0]}</AvatarFallback>
                   </Avatar>
                 )}
               </div>
