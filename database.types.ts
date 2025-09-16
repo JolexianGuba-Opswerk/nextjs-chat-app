@@ -1,315 +1,377 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
 export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "13.0.4";
-  };
+    PostgrestVersion: "13.0.4"
+  }
   public: {
     Tables: {
       GlobalMessage: {
         Row: {
-          content: string;
-          created_at: string;
-          id: number;
-          is_global: boolean;
-          sender_id: string | null;
-        };
+          content: string
+          created_at: string
+          id: number
+          is_global: boolean
+          sender_id: string | null
+        }
         Insert: {
-          content: string;
-          created_at?: string;
-          id?: number;
-          is_global?: boolean;
-          sender_id?: string | null;
-        };
+          content: string
+          created_at?: string
+          id?: number
+          is_global?: boolean
+          sender_id?: string | null
+        }
         Update: {
-          content?: string;
-          created_at?: string;
-          id?: number;
-          is_global?: boolean;
-          sender_id?: string | null;
-        };
+          content?: string
+          created_at?: string
+          id?: number
+          is_global?: boolean
+          sender_id?: string | null
+        }
         Relationships: [
           {
-            foreignKeyName: "GlobalMessage_sender_id_fkey";
-            columns: ["sender_id"];
-            isOneToOne: false;
-            referencedRelation: "Users";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
+            foreignKeyName: "GlobalMessage_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       GroupMessage: {
         Row: {
-          content: string;
-          created_at: string;
-          group_id: number | null;
-          id: number;
-          sender_id: string | null;
-        };
+          content: string
+          created_at: string
+          group_id: number | null
+          id: number
+          sender_id: string | null
+        }
         Insert: {
-          content?: string;
-          created_at?: string;
-          group_id?: number | null;
-          id?: number;
-          sender_id?: string | null;
-        };
+          content: string
+          created_at?: string
+          group_id?: number | null
+          id?: number
+          sender_id?: string | null
+        }
         Update: {
-          content?: string;
-          created_at?: string;
-          group_id?: number | null;
-          id?: number;
-          sender_id?: string | null;
-        };
+          content?: string
+          created_at?: string
+          group_id?: number | null
+          id?: number
+          sender_id?: string | null
+        }
         Relationships: [
           {
-            foreignKeyName: "GroupMessage_group_id_fkey";
-            columns: ["group_id"];
-            isOneToOne: false;
-            referencedRelation: "Groups";
-            referencedColumns: ["id"];
+            foreignKeyName: "GroupMessage_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "Groups"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "GroupMessage_sender_id_fkey";
-            columns: ["sender_id"];
-            isOneToOne: false;
-            referencedRelation: "Users";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
+            foreignKeyName: "GroupMessage_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       Groups: {
         Row: {
-          created_at: string;
-          created_by: string;
-          description: string;
-          id: number;
-          title: string;
-        };
+          created_at: string
+          created_by: string
+          description: string
+          id: number
+          title: string
+        }
         Insert: {
-          created_at?: string;
-          created_by: string;
-          description: string;
-          id?: number;
-          title: string;
-        };
+          created_at?: string
+          created_by: string
+          description: string
+          id?: number
+          title: string
+        }
         Update: {
-          created_at?: string;
-          created_by?: string;
-          description?: string;
-          id?: number;
-          title?: string;
-        };
+          created_at?: string
+          created_by?: string
+          description?: string
+          id?: number
+          title?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "Groups_created_by_fkey";
-            columns: ["created_by"];
-            isOneToOne: false;
-            referencedRelation: "Users";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
-      UserGroup: {
+            foreignKeyName: "Groups_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      Notification: {
         Row: {
-          created_at: string;
-          group_id: number | null;
-          id: number;
-          user_id: string;
-        };
+          created_at: string
+          id: number
+          is_read: boolean
+          message: string
+          meta_data: Json | null
+          recipient_id: string | null
+          redirection_url: string | null
+          sender_id: string
+          title: string
+          type: string | null
+        }
         Insert: {
-          created_at?: string;
-          group_id?: number | null;
-          id?: number;
-          user_id: string;
-        };
+          created_at?: string
+          id?: number
+          is_read?: boolean
+          message: string
+          meta_data?: Json | null
+          recipient_id?: string | null
+          redirection_url?: string | null
+          sender_id: string
+          title: string
+          type?: string | null
+        }
         Update: {
-          created_at?: string;
-          group_id?: number | null;
-          id?: number;
-          user_id?: string;
-        };
+          created_at?: string
+          id?: number
+          is_read?: boolean
+          message?: string
+          meta_data?: Json | null
+          recipient_id?: string | null
+          redirection_url?: string | null
+          sender_id?: string
+          title?: string
+          type?: string | null
+        }
         Relationships: [
           {
-            foreignKeyName: "UserGroup_group_id_fkey";
-            columns: ["group_id"];
-            isOneToOne: false;
-            referencedRelation: "Groups";
-            referencedColumns: ["id"];
+            foreignKeyName: "Notification_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "UserGroup_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "Users";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
+            foreignKeyName: "Notification_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      UserGroup: {
+        Row: {
+          created_at: string
+          group_id: number | null
+          id: number
+          user_id: string
+          visible_from: string | null
+        }
+        Insert: {
+          created_at?: string
+          group_id?: number | null
+          id?: number
+          user_id: string
+          visible_from?: string | null
+        }
+        Update: {
+          created_at?: string
+          group_id?: number | null
+          id?: number
+          user_id?: string
+          visible_from?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "UserGroup_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "Groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "UserGroup_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       Users: {
         Row: {
-          avatar_url: string | null;
-          created_at: string;
-          id: string;
-          is_online: boolean | null;
-          updated_at: string | null;
-          username: string;
-        };
+          avatar_url: string | null
+          created_at: string
+          id: string
+          is_online: boolean | null
+          updated_at: string | null
+          username: string
+        }
         Insert: {
-          avatar_url?: string | null;
-          created_at?: string;
-          id?: string;
-          is_online?: boolean | null;
-          updated_at?: string | null;
-          username: string;
-        };
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          is_online?: boolean | null
+          updated_at?: string | null
+          username: string
+        }
         Update: {
-          avatar_url?: string | null;
-          created_at?: string;
-          id?: string;
-          is_online?: boolean | null;
-          updated_at?: string | null;
-          username?: string;
-        };
-        Relationships: [];
-      };
-    };
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          is_online?: boolean | null
+          updated_at?: string | null
+          username?: string
+        }
+        Relationships: []
+      }
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Enums: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
-};
+      [_ in never]: never
+    }
+  }
+}
 
-type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">;
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<
-  keyof Database,
-  "public"
->];
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
+    schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals;
+  schema: keyof DatabaseWithoutInternals
 }
   ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
       DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R;
+      Row: infer R
     }
     ? R
     : never
   : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-      DefaultSchema["Views"])
-  ? (DefaultSchema["Tables"] &
-      DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
-      Row: infer R;
-    }
-    ? R
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
     : never
-  : never;
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
+    schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals;
+  schema: keyof DatabaseWithoutInternals
 }
   ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I;
+      Insert: infer I
     }
     ? I
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-  ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-      Insert: infer I;
-    }
-    ? I
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
     : never
-  : never;
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
+    schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals;
+  schema: keyof DatabaseWithoutInternals
 }
   ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U;
+      Update: infer U
     }
     ? U
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-  ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-      Update: infer U;
-    }
-    ? U
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
     : never
-  : never;
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
+    schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never
+    : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals;
+  schema: keyof DatabaseWithoutInternals
 }
   ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-  ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
-  : never;
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals;
+    schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never
+    : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals;
+  schema: keyof DatabaseWithoutInternals
 }
   ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-  ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-  : never;
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
 
 export const Constants = {
   public: {
     Enums: {},
   },
-} as const;
+} as const

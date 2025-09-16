@@ -26,6 +26,7 @@ import {
   Network,
   ChevronDown,
   ChevronRight,
+  MessageSquare,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -38,7 +39,7 @@ import getGlobalGroups from "../../../app/chat/hooks/getGlobalGroups";
 import updateOnlineStatus from "../../../app/chat/hooks/updateOnlineStatus";
 
 type GroupItem = {
-  id: string;
+  id: number;
 };
 
 function SideBar() {
@@ -124,12 +125,14 @@ function SideBar() {
     <div className="w-72 h-screen text-white flex flex-col border-r ">
       {/* Header */}
       <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-        <h1
-          className="text-lg font-bold"
+        <div
+          className="flex items-center space-x-2 cursor-pointer"
           onClick={() => router.replace("/chat/")}
         >
-          ChatApp
-        </h1>
+          <MessageSquare className="h-5 w-5 text-blue-400" />
+          <h1 className="text-lg font-bold ">ChatApp</h1>
+        </div>
+
         <div className="flex gap-2">
           <Button
             variant="ghost"
@@ -206,7 +209,7 @@ function SideBar() {
         </div>
 
         {expandedSections.myGroups && (
-          <div className="px-4 pb-4">
+          <div className="px-4 pb-4 h-40 overflow-y-scroll">
             {loading ? (
               <div className="space-y-2">
                 {Array.from({ length: 3 }).map((_, i) => (
@@ -251,7 +254,7 @@ function SideBar() {
         </div>
 
         {expandedSections.globalGroups && (
-          <div className="px-4 pb-4">
+          <div className="px-4 h-50 pb-4 overflow-y-scroll">
             {loading ? (
               <div className="space-y-2">
                 {Array.from({ length: 3 }).map((_, i) => (

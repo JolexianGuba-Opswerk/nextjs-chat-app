@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FormEvent, useEffect, useRef } from "react";
-import { formatDate } from "@/lib/formatDate";
+
 import { Message } from "../../../../types/chat/chat";
+import { timeAgo } from "@/lib/timeAgo";
 
 interface ChatWindowProps {
   messages: Message[];
@@ -70,7 +71,7 @@ export default function ChatWindow({
                   </div>
                   <span className="text-xs text-right m-1 text-gray-600 dark:text-gray-400">
                     <strong> {msg?.profile?.username} </strong>•{" "}
-                    {formatDate(msg.created_at)}
+                    {timeAgo(msg.created_at)}
                   </span>
                 </div>
 

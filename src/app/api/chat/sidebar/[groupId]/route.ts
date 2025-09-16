@@ -3,7 +3,7 @@ import { createServerSupabase } from "@/lib/supabase/supabaseServer";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { groupId: string } }
+  { params }: { params: { groupId: number } }
 ) {
   const { groupId } = await params;
   const supabase = await createServerSupabase();
