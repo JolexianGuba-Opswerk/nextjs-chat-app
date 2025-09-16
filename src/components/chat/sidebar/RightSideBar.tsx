@@ -15,8 +15,13 @@ import { useParams, usePathname } from "next/navigation";
 import RightSideBarSkeleton from "@/components/RightSideBarSkeleton";
 import GroupSettingsDialog from "./ManageGroupSettingsDialog";
 import ManageGroupMemberDialog from "./ManageGroupMemberDialog";
+import { createBrowserSupabase } from "@/lib/supabase/supabaseBrowserClient";
+import getCurrentSession from "@/lib/supabase/getCurrentSession";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function RightSideBar() {
+  const router = useRouter();
   const pathname = usePathname();
   const { id } = useParams();
   const groupId = Array.isArray(id) ? id[0] : id;
@@ -35,6 +40,24 @@ export default function RightSideBar() {
       </div>
     );
   }
+  const handleLeave = async () => {
+    try {
+      const supabase = createBrowserSupabase();
+      const user = await getCurrentSession();
+      if (!user || !user.id) return null;
+      const { error } = await supabase
+        .from("UserGroup")
+        .delete()
+        .eq("group_id", parseInt(currentGroup.id))
+        .eq("user_id", user.id);
+
+      if (error) throw error;
+      toast.success("You have been leave the chat");
+      router.push("/chat");
+    } catch {
+      toast.error("Failed to leave");
+    }
+  };
 
   return (
     <div className="w-72 border-l p-4 flex flex-col gap-6">
@@ -125,7 +148,7 @@ export default function RightSideBar() {
 
       {/* Leave Group */}
       {!currentGroup.isOwner && (
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full" onClick={handleLeave}>
           <LogOut className="mr-2 h-4 w-4" /> Leave Group
         </Button>
       )}

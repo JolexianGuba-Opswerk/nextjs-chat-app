@@ -5,7 +5,7 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: { groupId: number } }
 ) {
-  const groupId = params.groupId;
+  const {groupId} = await params;
   const { title, description } = await req.json();
   const supabase = await createServerSupabase();
 

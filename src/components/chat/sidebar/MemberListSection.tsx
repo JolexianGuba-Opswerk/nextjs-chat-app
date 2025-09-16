@@ -14,9 +14,12 @@ export default function MemberList({
   onKick: (userId: string) => void;
   onVisibilityChange: (userId: string, visibility: string) => void;
 }) {
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return <span className="text-sm text-muted-foreground">Loading...</span>;
   if (members.length === 0)
-    return <p className="text-gray-500">No members found.</p>;
+    return (
+      <span className="text-sm text-muted-foreground">No members found.</span>
+    );
 
   return (
     <div className="space-y-4 max-h-[400px] overflow-y-auto">

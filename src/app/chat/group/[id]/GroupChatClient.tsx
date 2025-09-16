@@ -8,6 +8,7 @@ import getCurrentProfile from "@/app/chat/hooks/getCurrentProfile";
 import { Message } from "../../../../../types/chat/chat";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import LoadingChatSkeleton from "@/components/LoadingChatSkeleton";
+import { realtimeStatusHandler } from "@/lib/supabase/realtimeStatusHandler";
 
 type GroupChatClientProps = {
   groupId: number;
@@ -31,7 +32,7 @@ export default function GroupChatClient({
   useEffect(() => {
     let channel: RealtimeChannel;
 
-    const fetchUser = async () => {
+    const setupGroupChatClient = async () => {
       const user = await getCurrentSession();
       if (!user) return;
 
@@ -78,10 +79,10 @@ export default function GroupChatClient({
           if (status !== "SUBSCRIBED") {
             setIsLoading(true);
           }
-          console.log("Subscription Status", status);
+          realtimeStatusHandler(status, channel, setupGroupChatClient);
         });
     };
-    fetchUser();
+    setupGroupChatClient();
 
     return () => {
       if (channel) {

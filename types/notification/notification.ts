@@ -7,6 +7,7 @@ export type Json =
   | Json[];
 
 export type PushNotification = {
+  
   title: string;
   message: string;
   meta_data: Json | null;

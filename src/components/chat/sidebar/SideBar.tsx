@@ -15,7 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Bell,
   Settings,
   LogOut,
   User,
@@ -37,6 +36,7 @@ import { toast } from "sonner";
 import CreateGroupDialog from "./CreateGroupDialog";
 import getGlobalGroups from "../../../app/chat/hooks/getGlobalGroups";
 import updateOnlineStatus from "../../../app/chat/hooks/updateOnlineStatus";
+import NotificationList from "./NotificationList";
 
 type GroupItem = {
   id: number;
@@ -139,7 +139,7 @@ function SideBar() {
             size="icon"
             className="text-gray-400 hover:text-white hover:bg-gray-800 pointer"
           >
-            <Bell className="h-4 w-4" />
+            <NotificationList />
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -153,7 +153,7 @@ function SideBar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="bg-gray-800 border-gray-700 text-white"
+              className="  border-gray-700 text-white"
             >
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-gray-700" />

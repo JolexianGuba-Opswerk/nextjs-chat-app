@@ -3,7 +3,7 @@ export type GroupChatCardProps = {
   title: string;
   description: string;
   created_by: string;
-  members: string;
+  members: number;
 };
 export type GroupsType = {
   id: number;
