@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 import { createBrowserSupabase } from "@/lib/supabase/supabaseBrowserClient";
+import getCurrentSession from "@/lib/supabase/getCurrentSession";
 
 export function SignupForm() {
   const [email, setEmail] = useState("");
@@ -20,6 +21,15 @@ export function SignupForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const supabase = createBrowserSupabase();
+  useEffect(() => {
+    const checkUser = async () => {
+      const user = await getCurrentSession();
+      if (user) {
+        redirect("/chat");
+      }
+    };
+    checkUser();
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,7 +138,11 @@ export function SignupForm() {
               </Button>
             </div>
 
-            <div className="text-center text-sm">
+            <div
+              className={`text-center text-sm ${
+                loading ? "pointer-events-none opacity-50" : ""
+              }`}
+            >
               Already have an account?{" "}
               <a href="/login" className="underline underline-offset-4">
                 Login

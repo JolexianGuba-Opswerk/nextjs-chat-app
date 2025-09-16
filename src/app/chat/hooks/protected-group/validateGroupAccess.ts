@@ -1,6 +1,5 @@
 export default async function validateGroupAccess(
-  groupId: string,
-  signal: AbortSignal
+  groupId: number,
 ) {
   const res = await fetch("/api/chat/validate-access", {
     method: "POST",
@@ -8,7 +7,7 @@ export default async function validateGroupAccess(
       groupId,
     }),
     credentials: "include",
-    signal,
+   
   });
   const result = await res.json();
   return result;

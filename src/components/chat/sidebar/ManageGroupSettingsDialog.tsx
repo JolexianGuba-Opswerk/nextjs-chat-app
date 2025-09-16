@@ -85,7 +85,11 @@ export default function ManageGroupSettingsDialog({
 
         <DialogFooter>
           <Button disabled={loading} onClick={handleSave}>
-            {loading ? "Saving..." : "Save"}
+            <span className="text-sm text-muted-foreground">
+              {" "}
+              {loading ? "Saving..." : "Save"}
+            </span>
+            ;
           </Button>
         </DialogFooter>
       </DialogContent>

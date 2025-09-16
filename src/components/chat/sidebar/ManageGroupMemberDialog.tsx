@@ -149,9 +149,11 @@ export default function ManageGroupMemberDialog({ groupId }: Props) {
 
     resultArray.forEach((item) => {
       if (item.status === "User not found" || item.status === "Failed to add") {
-        toast.error(` ${item.status}`);
+        toast.error(` ${item.status.toUpperCase()}`);
       } else {
-        toast.success(`${item.username} - ${item.status}`);
+        toast.success(
+          `${item.username.toUpperCase()} - ${item.status.toUpperCase()}`
+        );
       }
     });
   };
