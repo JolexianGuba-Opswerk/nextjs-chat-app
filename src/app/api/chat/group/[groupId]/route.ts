@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-
 import { createServerSupabase } from "@/lib/supabase/supabaseServer";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { groupId: string } }
+  { params }: { params: { groupId: number } }
 ) {
   const groupId = params.groupId;
   const { title, description } = await req.json();
@@ -47,3 +46,4 @@ export async function PATCH(
     { status: 200 }
   );
 }
+

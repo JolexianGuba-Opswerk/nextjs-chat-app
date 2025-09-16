@@ -11,7 +11,6 @@ export type GroupsType = {
   description: string;
   created_at: string;
   created_by: string;
-  password: string;
 };
 
 export type CreateGroupProps = {
